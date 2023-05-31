@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Network ID="distortion" Version="0.0.0" AllowCompilation="1">
+  <Node FactoryPath="container.chain" ID="distortion" Bypassed="0" ShowParameters="1">
+    <Nodes>
+      <Node ID="jlinkwitzriley1" FactoryPath="jdsp.jlinkwitzriley" Bypassed="0">
+        <ComplexData>
+          <Filters>
+            <Filter Index="-1" EmbeddedData=""/>
+          </Filters>
+        </ComplexData>
+        <Parameters>
+          <Parameter MinValue="20.0" MaxValue="20000.0" SkewFactor="0.2299045622348785"
+                     ID="Frequency" Automated="1"/>
+          <Parameter MinValue="0.0" MaxValue="2.0" StepSize="1.0" ID="Type" Value="1.0"/>
+        </Parameters>
+      </Node>
+      <Node ID="jlinkwitzriley" FactoryPath="jdsp.jlinkwitzriley" Bypassed="0">
+        <ComplexData>
+          <Filters>
+            <Filter Index="-1" EmbeddedData=""/>
+          </Filters>
+        </ComplexData>
+        <Parameters>
+          <Parameter MinValue="20.0" MaxValue="20000.0" SkewFactor="0.2299045622348785"
+                     ID="Frequency" Automated="1"/>
+          <Parameter MinValue="0.0" MaxValue="2.0" StepSize="1.0" ID="Type" Value="0.0"/>
+        </Parameters>
+      </Node>
+      <Node ID="gain" FactoryPath="core.gain" Bypassed="0">
+        <Parameters>
+          <Parameter MinValue="0.0" MaxValue="60.0" StepSize="0.1000000014901161"
+                     SkewFactor="1" ID="Gain" Automated="1"/>
+          <Parameter MinValue="0.0" MaxValue="1000.0" StepSize="0.1000000014901161"
+                     SkewFactor="0.3010300099849701" ID="Smoothing" Value="20.0"/>
+          <Parameter MinValue="-100.0" MaxValue="0.0" StepSize="0.1000000014901161"
+                     SkewFactor="5.422270774841309" ID="ResetValue" Value="0.0"/>
+        </Parameters>
+      </Node>
+      <Node ID="snex_shaper" FactoryPath="core.snex_shaper" Bypassed="0">
+        <Properties>
+          <Property ID="ClassId" Value="Shape"/>
+        </Properties>
+        <ComplexData>
+          <Tables/>
+          <SliderPacks/>
+          <AudioFiles/>
+          <Filters/>
+          <DisplayBuffers>
+            <DisplayBuffer Index="-1" EmbeddedData=""/>
+          </DisplayBuffers>
+        </ComplexData>
+        <Parameters>
+          <Parameter MinValue="0.1" MaxValue="1.0" ID="gain" Automated="1"/>
+        </Parameters>
+      </Node>
+      <Node ID="gain1" FactoryPath="core.gain" Bypassed="0">
+        <Parameters>
+          <Parameter MinValue="-40.0" MaxValue="0.0" StepSize="0.1000000014901161"
+                     SkewFactor="1" ID="Gain" Value="-34.89999992400408"/>
+          <Parameter MinValue="0.0" MaxValue="1000.0" StepSize="0.1000000014901161"
+                     SkewFactor="0.3010300099849701" ID="Smoothing" Value="20.0"/>
+          <Parameter MinValue="-100.0" MaxValue="0.0" StepSize="0.1000000014901161"
+                     SkewFactor="5.422270774841309" ID="ResetValue" Value="0.0"/>
+        </Parameters>
+      </Node>
+    </Nodes>
+    <Parameters>
+      <Parameter ID="Gain" MinValue="0.0" MaxValue="60.0" StepSize="0.1000000014901161"
+                 Value="60.0">
+        <Connections>
+          <Connection NodeId="gain" ParameterId="Gain"/>
+        </Connections>
+      </Parameter>
+      <Parameter ID="Drive" MinValue="0.1" MaxValue="1.0" Value="0.5579906860351563">
+        <Connections>
+          <Connection NodeId="snex_shaper" ParameterId="gain"/>
+        </Connections>
+      </Parameter>
+      <Parameter ID="Low Cut" MinValue="20.0" MaxValue="20000.0" SkewFactor="0.2299045622348785"
+                 Value="118.1405200498154">
+        <Connections>
+          <Connection NodeId="jlinkwitzriley1" ParameterId="Frequency"/>
+        </Connections>
+      </Parameter>
+      <Parameter ID="Hi Cut" MinValue="20.0" MaxValue="20000.0" SkewFactor="0.2299045622348785"
+                 Value="14913.65294848542">
+        <Connections>
+          <Connection NodeId="jlinkwitzriley" ParameterId="Frequency"/>
+        </Connections>
+      </Parameter>
+    </Parameters>
+  </Node>
+</Network>
